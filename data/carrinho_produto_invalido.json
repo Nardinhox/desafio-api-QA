@@ -1,0 +1,8 @@
+{
+  "produtos": [
+    {
+      "idProduto": "produto_inexistente",
+      "quantidade": 1
+    }
+  ]
+} 

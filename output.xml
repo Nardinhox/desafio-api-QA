@@ -1,0 +1,1862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.10.12 on linux)" generated="20250625 15:35:06.642" rpa="false" schemaversion="4">
+<suite id="s1" name="Features" source="/home/locavalcante/estudos/desafio-api-QA/features">
+<suite id="s1-s1" name="Carrinhos.feature" source="/home/locavalcante/estudos/desafio-api-QA/features/Carrinhos.feature.robot">
+<test id="s1-s1-t1" name="Criar Carrinho Com Sucesso" line="5">
+<kw name="Dado que eu possua um produto disponivel" library="CarrinhosSteps">
+<kw name="Limpar Carrinho Do Usuario" library="CarrinhosSteps">
+<doc>Remove o carrinho do usuário de teste</doc>
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:06.848" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:06.848" endtime="20250625 15:35:06.848"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:06.847" endtime="20250625 15:35:06.848"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:06.849" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:06.849" endtime="20250625 15:35:06.849"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:08.007" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:08.007" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'd592c1ff4bac53ae1f0538befcb8f83e;o=1', 'date': 'Wed, 25 Jun 2025 18:35:07 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA3LCJleHAiOjE3NTA4NzcxMDd9.n6KUJKWAutRPPFCHRVN4GZzEy0IFF8avhpLSPR9RLLc"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:06.850" endtime="20250625 15:35:08.007"/>
+</kw>
+<msg timestamp="20250625 15:35:08.007" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:06.850" endtime="20250625 15:35:08.007"/>
+</kw>
+<msg timestamp="20250625 15:35:08.007" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:06.849" endtime="20250625 15:35:08.007"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:08.008" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA3LCJleHAiOjE3NTA4NzcxMDd9.n6KUJKWAutRPPFCHRVN4GZzEy0IFF8avhpLSPR9RLLc</msg>
+<status status="PASS" starttime="20250625 15:35:08.007" endtime="20250625 15:35:08.008"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:08.008" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA3LCJleHAiOjE3NTA4NzcxMDd9.n6KUJKWAutRPPFCHRVN4GZzEy0IFF8av...</msg>
+<status status="PASS" starttime="20250625 15:35:08.008" endtime="20250625 15:35:08.008"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:08.212" level="INFO">GET Request : url=https://serverest.dev/carrinhos 
+ path_url=/carrinhos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20250625 15:35:08.212" level="INFO">GET Response : url=https://serverest.dev/carrinhos 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '0d15ebd2a2f453aa1f0538befcb8fc9e', 'date': 'Wed, 25 Jun 2025 18:35:08 GMT', 'server': 'Google Frontend', 'Content-Length': '2861'} 
+ body={
+    "quantidade": 7,
+    "carrinhos": [
+        {
+            "produtos": [
+                {
+                    "idProduto": "hmpbSFVRbVAjDYz3",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "caecMWGgIjbnqz0s",
+            "_id": "9hJHJkkYQXS2oqL1"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "Dpz6qTFx6W5TGcLy",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "bvn4j5q4YN8cNAfz",
+            "_id": "9toW6sFhfstPRpBl"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "xbAPxv5M1GVjJfkI",
+                    "quantidade": 2,
+                    "precoUnitario": 19
+                }
+            ],
+            "precoTotal": 38,
+            "quantidadeTotal": 2,
+            "idUsuario": "AvbsFuKRwQJL2d7k",
+            "_id": "BNW7ZMoUHv1YpF0k"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "OB9AnHPxXce9WPwv",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "sZyB4HNEFCoe6COZ",
+            "_id": "UL9dVQihXwPYBw14"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "42uKzTeYTgtyPqEl",
+                    "quantidade": 100,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 10000,
+            "quantidadeTotal": 100,
+            "idUsuario": "g9BuuJd2nVcq6Qhu",
+            "_id": "hJ9QBsKtcGYf8NMK"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "BeeJh5lz3k6kSIzA",
+                    "quantidade": 2,
+                    "precoUnitario": 470
+                },
+                {
+                    "idProduto": "K6leHdftCeOJj8BJ",
+                    "quantidade": 1,
+                    "precoUnitario": 5240
+                }
+            ],
+            "precoTotal": 6180,
+            "quantidadeTotal": 3,
+            "idUsuario": "0uxuPY0cbmQhpEz1",
+            "_id": "qbMqntef4iTOwWfg"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "FHlla510E0gvO28M",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "GX9tkbyAPYDrFEbA",
+            "_id": "uiEIOGLB3XBci44J"
+        }
+    ]
+} 
+ </msg>
+<msg timestamp="20250625 15:35:08.212" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:08.008" endtime="20250625 15:35:08.212"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${carrinhos}</var>
+<arg>${response.json()['carrinhos']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:08.212" level="INFO">${carrinhos} = [{'produtos': [{'idProduto': 'hmpbSFVRbVAjDYz3', 'quantidade': 5, 'precoUnitario': 100}], 'precoTotal': 500, 'quantidadeTotal': 5, 'idUsuario': 'caecMWGgIjbnqz0s', '_id': '9hJHJkkYQXS2oqL1'}, {'produt...</msg>
+<status status="PASS" starttime="20250625 15:35:08.212" endtime="20250625 15:35:08.212"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>${carrinhos}</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}/concluir-compra</arg>
+<arg>headers=${headers}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}/concluir-compra</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:08.417" level="INFO">DELETE Request : url=https://serverest.dev/carrinhos/concluir-compra 
+ path_url=/carrinhos/concluir-compra 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA3LCJleHAiOjE3NTA4NzcxMDd9.n6KUJKWAutRPPFCHRVN4GZzEy0IFF8avhpLSPR9RLLc', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20250625 15:35:08.417" level="INFO">DELETE Response : url=https://serverest.dev/carrinhos/concluir-compra 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '538ff5c6ab7d23ec1f0538befcb8f21d', 'date': 'Wed, 25 Jun 2025 18:35:08 GMT', 'server': 'Google Frontend', 'Content-Length': '68'} 
+ body={
+    "message": "Não foi encontrado carrinho para esse usuário"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:08.213" endtime="20250625 15:35:08.417"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:08.213" endtime="20250625 15:35:08.418"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:06.847" endtime="20250625 15:35:08.418"/>
+</kw>
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:08.418" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:08.418" endtime="20250625 15:35:08.418"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:08.418" endtime="20250625 15:35:08.418"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:08.419" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:08.418" endtime="20250625 15:35:08.419"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:08.826" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:08.826" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '2b669101c7379b47a1700f85d716280e', 'date': 'Wed, 25 Jun 2025 18:35:08 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA4LCJleHAiOjE3NTA4NzcxMDh9.4sGQeXBXjKPngdmdLZX95SX4X2kXJTRCUqrsqOLSzQk"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:08.419" endtime="20250625 15:35:08.826"/>
+</kw>
+<msg timestamp="20250625 15:35:08.826" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:08.419" endtime="20250625 15:35:08.827"/>
+</kw>
+<msg timestamp="20250625 15:35:08.827" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:08.419" endtime="20250625 15:35:08.827"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:08.827" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA4LCJleHAiOjE3NTA4NzcxMDh9.4sGQeXBXjKPngdmdLZX95SX4X2kXJTRCUqrsqOLSzQk</msg>
+<status status="PASS" starttime="20250625 15:35:08.827" endtime="20250625 15:35:08.827"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:08.828" level="INFO">${AUTH_TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA4LCJleHAiOjE3NTA4NzcxMDh9.4sGQeXBXjKPngdmdLZX95SX4X2kXJTRCUqrsqOLSzQk</msg>
+<status status="PASS" starttime="20250625 15:35:08.827" endtime="20250625 15:35:08.828"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${produto}</var>
+<arg>idProduto=BeeJh5lz3k6kSIzA</arg>
+<arg>quantidade=1</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:08.828" level="INFO">${produto} = {'idProduto': 'BeeJh5lz3k6kSIzA', 'quantidade': '1'}</msg>
+<status status="PASS" starttime="20250625 15:35:08.828" endtime="20250625 15:35:08.828"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${produto}</arg>
+<arg>${produto}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:08.828" level="INFO">${produto} = {'idProduto': 'BeeJh5lz3k6kSIzA', 'quantidade': '1'}</msg>
+<status status="PASS" starttime="20250625 15:35:08.828" endtime="20250625 15:35:08.828"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:06.847" endtime="20250625 15:35:08.828"/>
+</kw>
+<kw name="Quando eu realizo a requisicao de criacao do carrinho" library="CarrinhosSteps">
+<kw name="Create List" library="BuiltIn">
+<var>${produtos}</var>
+<arg>${produto}</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20250625 15:35:08.829" level="INFO">${produtos} = [{'idProduto': 'BeeJh5lz3k6kSIzA', 'quantidade': '1'}]</msg>
+<status status="PASS" starttime="20250625 15:35:08.829" endtime="20250625 15:35:08.829"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>produtos=${produtos}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:08.829" level="INFO">${body} = {'produtos': [{'idProduto': 'BeeJh5lz3k6kSIzA', 'quantidade': '1'}]}</msg>
+<status status="PASS" starttime="20250625 15:35:08.829" endtime="20250625 15:35:08.829"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${AUTH_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:08.829" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA4LCJleHAiOjE3NTA4NzcxMDh9.4sGQeXBXjKPngdmdLZX95SX4X2kXJTRC...</msg>
+<status status="PASS" starttime="20250625 15:35:08.829" endtime="20250625 15:35:08.829"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:09.020" level="INFO">POST Request : url=https://serverest.dev/carrinhos 
+ path_url=/carrinhos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA4LCJleHAiOjE3NTA4NzcxMDh9.4sGQeXBXjKPngdmdLZX95SX4X2kXJTRCUqrsqOLSzQk', 'Content-Length': '68', 'Content-Type': 'application/json'} 
+ body=b'{"produtos": [{"idProduto": "BeeJh5lz3k6kSIzA", "quantidade": "1"}]}' 
+ </msg>
+<msg timestamp="20250625 15:35:09.020" level="INFO">POST Response : url=https://serverest.dev/carrinhos 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'e9a86acf2ea2cbf3a1700f85d7162c39', 'date': 'Wed, 25 Jun 2025 18:35:08 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "dIfVNOO1ujAPaG61"
+} 
+ </msg>
+<msg timestamp="20250625 15:35:09.020" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:08.829" endtime="20250625 15:35:09.020"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:09.021" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:09.020" endtime="20250625 15:35:09.021"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:08.828" endtime="20250625 15:35:09.021"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 201 e confirmar a criacao" library="CarrinhosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:09.021" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:09.021" endtime="20250625 15:35:09.022"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()['message']}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:09.022" endtime="20250625 15:35:09.022"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.021" endtime="20250625 15:35:09.022"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:06.846" endtime="20250625 15:35:09.022"/>
+</test>
+<test id="s1-s1-t2" name="Criar Carrinho Com Produto Inexistente" line="10">
+<kw name="Dado que eu informe um produto que nao existe" library="CarrinhosSteps">
+<kw name="Limpar Carrinho Do Usuario" library="CarrinhosSteps">
+<doc>Remove o carrinho do usuário de teste</doc>
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:09.023" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:09.023" endtime="20250625 15:35:09.023"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.023" endtime="20250625 15:35:09.023"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:09.023" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:09.023" endtime="20250625 15:35:09.023"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:09.441" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:09.441" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'bb2e07bb31b6a150d7da6a357a25efcc', 'date': 'Wed, 25 Jun 2025 18:35:09 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA5LCJleHAiOjE3NTA4NzcxMDl9.73NwzYVK6ofZH0eab6qdDeffJwVTnaElnx_C6FAWDwI"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:09.024" endtime="20250625 15:35:09.441"/>
+</kw>
+<msg timestamp="20250625 15:35:09.441" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:09.024" endtime="20250625 15:35:09.441"/>
+</kw>
+<msg timestamp="20250625 15:35:09.442" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:09.024" endtime="20250625 15:35:09.442"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:09.442" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA5LCJleHAiOjE3NTA4NzcxMDl9.73NwzYVK6ofZH0eab6qdDeffJwVTnaElnx_C6FAWDwI</msg>
+<status status="PASS" starttime="20250625 15:35:09.442" endtime="20250625 15:35:09.442"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:09.442" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA5LCJleHAiOjE3NTA4NzcxMDl9.73NwzYVK6ofZH0eab6qdDeffJwVTnaEl...</msg>
+<status status="PASS" starttime="20250625 15:35:09.442" endtime="20250625 15:35:09.442"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:09.645" level="INFO">GET Request : url=https://serverest.dev/carrinhos 
+ path_url=/carrinhos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20250625 15:35:09.645" level="INFO">GET Response : url=https://serverest.dev/carrinhos 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'ab1031d3ffc3549bd7da6a357a25e131', 'date': 'Wed, 25 Jun 2025 18:35:09 GMT', 'server': 'Google Frontend', 'Content-Length': '3243'} 
+ body={
+    "quantidade": 8,
+    "carrinhos": [
+        {
+            "produtos": [
+                {
+                    "idProduto": "hmpbSFVRbVAjDYz3",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "caecMWGgIjbnqz0s",
+            "_id": "9hJHJkkYQXS2oqL1"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "Dpz6qTFx6W5TGcLy",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "bvn4j5q4YN8cNAfz",
+            "_id": "9toW6sFhfstPRpBl"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "xbAPxv5M1GVjJfkI",
+                    "quantidade": 2,
+                    "precoUnitario": 19
+                }
+            ],
+            "precoTotal": 38,
+            "quantidadeTotal": 2,
+            "idUsuario": "AvbsFuKRwQJL2d7k",
+            "_id": "BNW7ZMoUHv1YpF0k"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "OB9AnHPxXce9WPwv",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "sZyB4HNEFCoe6COZ",
+            "_id": "UL9dVQihXwPYBw14"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "BeeJh5lz3k6kSIzA",
+                    "quantidade": "1",
+                    "precoUnitario": 470
+                }
+            ],
+            "precoTotal": 470,
+            "quantidadeTotal": "01",
+            "idUsuario": "Gc2T1YMms1V6EYZm",
+            "_id": "dIfVNOO1ujAPaG61"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "42uKzTeYTgtyPqEl",
+                    "quantidade": 100,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 10000,
+            "quantidadeTotal": 100,
+            "idUsuario": "g9BuuJd2nVcq6Qhu",
+            "_id": "hJ9QBsKtcGYf8NMK"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "BeeJh5lz3k6kSIzA",
+                    "quantidade": 2,
+                    "precoUnitario": 470
+                },
+                {
+                    "idProduto": "K6leHdftCeOJj8BJ",
+                    "quantidade": 1,
+                    "precoUnitario": 5240
+                }
+            ],
+            "precoTotal": 6180,
+            "quantidadeTotal": 3,
+            "idUsuario": "0uxuPY0cbmQhpEz1",
+            "_id": "qbMqntef4iTOwWfg"
+        },
+        {
+            "produtos": [
+                {
+                    "idProduto": "FHlla510E0gvO28M",
+                    "quantidade": 5,
+                    "precoUnitario": 100
+                }
+            ],
+            "precoTotal": 500,
+            "quantidadeTotal": 5,
+            "idUsuario": "GX9tkbyAPYDrFEbA",
+            "_id": "uiEIOGLB3XBci44J"
+        }
+    ]
+} 
+ </msg>
+<msg timestamp="20250625 15:35:09.645" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:09.443" endtime="20250625 15:35:09.645"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${carrinhos}</var>
+<arg>${response.json()['carrinhos']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:09.646" level="INFO">${carrinhos} = [{'produtos': [{'idProduto': 'hmpbSFVRbVAjDYz3', 'quantidade': 5, 'precoUnitario': 100}], 'precoTotal': 500, 'quantidadeTotal': 5, 'idUsuario': 'caecMWGgIjbnqz0s', '_id': '9hJHJkkYQXS2oqL1'}, {'produt...</msg>
+<status status="PASS" starttime="20250625 15:35:09.645" endtime="20250625 15:35:09.646"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<arg>${carrinhos}</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}/concluir-compra</arg>
+<arg>headers=${headers}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}/concluir-compra</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:10.194" level="INFO">DELETE Request : url=https://serverest.dev/carrinhos/concluir-compra 
+ path_url=/carrinhos/concluir-compra 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTA5LCJleHAiOjE3NTA4NzcxMDl9.73NwzYVK6ofZH0eab6qdDeffJwVTnaElnx_C6FAWDwI', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20250625 15:35:10.194" level="INFO">DELETE Response : url=https://serverest.dev/carrinhos/concluir-compra 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'e33425ded75c4d66d7da6a357a25e8f4', 'date': 'Wed, 25 Jun 2025 18:35:09 GMT', 'server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:09.646" endtime="20250625 15:35:10.194"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.646" endtime="20250625 15:35:10.194"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.023" endtime="20250625 15:35:10.194"/>
+</kw>
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:10.194" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:10.194" endtime="20250625 15:35:10.195"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.194" endtime="20250625 15:35:10.195"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:10.195" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:10.195" endtime="20250625 15:35:10.195"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:10.681" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:10.681" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '6e55f35706b2ef793575cdaeebb20053', 'date': 'Wed, 25 Jun 2025 18:35:10 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEwLCJleHAiOjE3NTA4NzcxMTB9.vNboLhSh72O9mrD2nRn_GV8CTlOQOUK6g2QhDTzldJw"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:10.196" endtime="20250625 15:35:10.681"/>
+</kw>
+<msg timestamp="20250625 15:35:10.681" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.195" endtime="20250625 15:35:10.681"/>
+</kw>
+<msg timestamp="20250625 15:35:10.681" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.195" endtime="20250625 15:35:10.681"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:10.682" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEwLCJleHAiOjE3NTA4NzcxMTB9.vNboLhSh72O9mrD2nRn_GV8CTlOQOUK6g2QhDTzldJw</msg>
+<status status="PASS" starttime="20250625 15:35:10.681" endtime="20250625 15:35:10.682"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:10.682" level="INFO">${AUTH_TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEwLCJleHAiOjE3NTA4NzcxMTB9.vNboLhSh72O9mrD2nRn_GV8CTlOQOUK6g2QhDTzldJw</msg>
+<status status="PASS" starttime="20250625 15:35:10.682" endtime="20250625 15:35:10.682"/>
+</kw>
+<kw name="Generate Random String" library="String">
+<var>${random_id}</var>
+<arg>16</arg>
+<arg>[LETTERS][NUMBERS]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20250625 15:35:10.682" level="INFO">${random_id} = dEkIODj3uj6n2O2d</msg>
+<status status="PASS" starttime="20250625 15:35:10.682" endtime="20250625 15:35:10.682"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${produto_id_inexistente}</arg>
+<arg>${random_id}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:10.683" level="INFO">${produto_id_inexistente} = dEkIODj3uj6n2O2d</msg>
+<status status="PASS" starttime="20250625 15:35:10.682" endtime="20250625 15:35:10.683"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.022" endtime="20250625 15:35:10.683"/>
+</kw>
+<kw name="Quando eu tento criar um carrinho com produto invalido" library="CarrinhosSteps">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${produto_invalido}</var>
+<arg>idProduto=${produto_id_inexistente}</arg>
+<arg>quantidade=1</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:10.683" level="INFO">${produto_invalido} = {'idProduto': 'dEkIODj3uj6n2O2d', 'quantidade': '1'}</msg>
+<status status="PASS" starttime="20250625 15:35:10.683" endtime="20250625 15:35:10.683"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>${produtos}</var>
+<arg>${produto_invalido}</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20250625 15:35:10.683" level="INFO">${produtos} = [{'idProduto': 'dEkIODj3uj6n2O2d', 'quantidade': '1'}]</msg>
+<status status="PASS" starttime="20250625 15:35:10.683" endtime="20250625 15:35:10.683"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>produtos=${produtos}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:10.684" level="INFO">${body} = {'produtos': [{'idProduto': 'dEkIODj3uj6n2O2d', 'quantidade': '1'}]}</msg>
+<status status="PASS" starttime="20250625 15:35:10.683" endtime="20250625 15:35:10.684"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${AUTH_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:10.684" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEwLCJleHAiOjE3NTA4NzcxMTB9.vNboLhSh72O9mrD2nRn_GV8CTlOQOUK6...</msg>
+<status status="PASS" starttime="20250625 15:35:10.684" endtime="20250625 15:35:10.684"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${CARRINHOS_ENDPOINT}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=400</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:10.976" level="INFO">POST Request : url=https://serverest.dev/carrinhos 
+ path_url=/carrinhos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEwLCJleHAiOjE3NTA4NzcxMTB9.vNboLhSh72O9mrD2nRn_GV8CTlOQOUK6g2QhDTzldJw', 'Content-Length': '68', 'Content-Type': 'application/json'} 
+ body=b'{"produtos": [{"idProduto": "dEkIODj3uj6n2O2d", "quantidade": "1"}]}' 
+ </msg>
+<msg timestamp="20250625 15:35:10.976" level="INFO">POST Response : url=https://serverest.dev/carrinhos 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '634483c4d66ef2a83575cdaeebb20f4e', 'date': 'Wed, 25 Jun 2025 18:35:10 GMT', 'server': 'Google Frontend', 'Content-Length': '150'} 
+ body={
+    "message": "Produto não encontrado",
+    "item": {
+        "idProduto": "dEkIODj3uj6n2O2d",
+        "quantidade": 1,
+        "index": 0
+    }
+} 
+ </msg>
+<msg timestamp="20250625 15:35:10.976" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.684" endtime="20250625 15:35:10.976"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:10.977" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.976" endtime="20250625 15:35:10.977"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.683" endtime="20250625 15:35:10.977"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 400 e produto nao encontrado" library="CarrinhosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:10.977" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.977" endtime="20250625 15:35:10.977"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Produto não encontrado</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:10.977" endtime="20250625 15:35:10.978"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.977" endtime="20250625 15:35:10.978"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:09.022" endtime="20250625 15:35:10.978"/>
+</test>
+<status status="PASS" starttime="20250625 15:35:06.657" endtime="20250625 15:35:10.978"/>
+</suite>
+<suite id="s1-s2" name="Login.feature" source="/home/locavalcante/estudos/desafio-api-QA/features/Login.feature.robot">
+<test id="s1-s2-t1" name="Login Com Sucesso" line="5">
+<kw name="Dado que eu possua um usuario valido" library="LoginSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:10.984" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:10.984" endtime="20250625 15:35:10.984"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.984" endtime="20250625 15:35:10.984"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.983" endtime="20250625 15:35:10.984"/>
+</kw>
+<kw name="Quando eu realizo o login com credenciais validas" library="LoginSteps">
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:10.985" level="INFO">${body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:10.984" endtime="20250625 15:35:10.985"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:11.705" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:11.705" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '2e1a8d969b9530c7144b4e579026d91b', 'date': 'Wed, 25 Jun 2025 18:35:11 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTExLCJleHAiOjE3NTA4NzcxMTF9.VTjwsYI2EUMpfjQf25DGTH_HvpSoQ1u9GuRZbF4MuyU"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:10.985" endtime="20250625 15:35:11.705"/>
+</kw>
+<msg timestamp="20250625 15:35:11.705" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.985" endtime="20250625 15:35:11.705"/>
+</kw>
+<msg timestamp="20250625 15:35:11.705" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:10.985" endtime="20250625 15:35:11.705"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:11.705" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:11.705" endtime="20250625 15:35:11.705"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.984" endtime="20250625 15:35:11.705"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 200 e token de autorizacao" library="LoginSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:11.706" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:11.706" endtime="20250625 15:35:11.706"/>
+</kw>
+<kw name="Dictionary Should Contain Key" library="Collections">
+<arg>${response.json()}</arg>
+<arg>authorization</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20250625 15:35:11.706" endtime="20250625 15:35:11.706"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:11.705" endtime="20250625 15:35:11.706"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:10.983" endtime="20250625 15:35:11.707"/>
+</test>
+<test id="s1-s2-t2" name="Login Com Senha Invalida" line="10">
+<kw name="Dado que eu possua um usuario valido" library="LoginSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:11.707" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:11.707" endtime="20250625 15:35:11.708"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:11.707" endtime="20250625 15:35:11.708"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:11.707" endtime="20250625 15:35:11.708"/>
+</kw>
+<kw name="Quando eu realizo o login com senha invalida" library="LoginSteps">
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_senha_invalida.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:11.708" level="INFO">${body} = {'email': 'testeerro@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:11.708" endtime="20250625 15:35:11.708"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${body}</arg>
+<arg>401</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:12.103" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '50', 'Content-Type': 'application/json'} 
+ body=b'{"email": "testeerro@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:12.103" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=401, reason=Unauthorized 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'cf61737359a1c69b5b6eded5b7634eef', 'date': 'Wed, 25 Jun 2025 18:35:11 GMT', 'server': 'Google Frontend', 'Content-Length': '48'} 
+ body={
+    "message": "Email e/ou senha inválidos"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:11.709" endtime="20250625 15:35:12.103"/>
+</kw>
+<msg timestamp="20250625 15:35:12.103" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:11.708" endtime="20250625 15:35:12.103"/>
+</kw>
+<msg timestamp="20250625 15:35:12.103" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:11.708" endtime="20250625 15:35:12.103"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:12.103" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.103" endtime="20250625 15:35:12.103"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:11.708" endtime="20250625 15:35:12.103"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 401 e mensagem de erro" library="LoginSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:12.104" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.104" endtime="20250625 15:35:12.104"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Email e/ou senha inválidos</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:12.104" endtime="20250625 15:35:12.104"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.103" endtime="20250625 15:35:12.104"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:11.707" endtime="20250625 15:35:12.105"/>
+</test>
+<status status="PASS" starttime="20250625 15:35:10.979" endtime="20250625 15:35:12.105"/>
+</suite>
+<suite id="s1-s3" name="Produtos.feature" source="/home/locavalcante/estudos/desafio-api-QA/features/Produtos.feature.robot">
+<test id="s1-s3-t1" name="Criar Produto Com Sucesso" line="5">
+<kw name="Dado que eu possua dados validos para criar um produto" library="ProdutosSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:12.112" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:12.112" endtime="20250625 15:35:12.112"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.111" endtime="20250625 15:35:12.112"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:12.112" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:12.112" endtime="20250625 15:35:12.112"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:12.512" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:12.512" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '81e52e457a21991eb8f1f033cf245a00', 'date': 'Wed, 25 Jun 2025 18:35:12 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEyLCJleHAiOjE3NTA4NzcxMTJ9.zc4XCHDbIjsqF0XeyeMH5P2rM5LN77Rvr23v4uobtwk"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:12.113" endtime="20250625 15:35:12.512"/>
+</kw>
+<msg timestamp="20250625 15:35:12.512" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.113" endtime="20250625 15:35:12.512"/>
+</kw>
+<msg timestamp="20250625 15:35:12.512" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.112" endtime="20250625 15:35:12.512"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:12.513" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEyLCJleHAiOjE3NTA4NzcxMTJ9.zc4XCHDbIjsqF0XeyeMH5P2rM5LN77Rvr23v4uobtwk</msg>
+<status status="PASS" starttime="20250625 15:35:12.512" endtime="20250625 15:35:12.513"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:12.513" level="INFO">${AUTH_TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEyLCJleHAiOjE3NTA4NzcxMTJ9.zc4XCHDbIjsqF0XeyeMH5P2rM5LN77Rvr23v4uobtwk</msg>
+<status status="PASS" starttime="20250625 15:35:12.513" endtime="20250625 15:35:12.514"/>
+</kw>
+<kw name="Generate Random String" library="String">
+<var>${random}</var>
+<arg>5</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20250625 15:35:12.514" level="INFO">${random} = Am0yg</msg>
+<status status="PASS" starttime="20250625 15:35:12.514" endtime="20250625 15:35:12.514"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${produto_nome}</arg>
+<arg>Produto ${random}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:12.514" level="INFO">${produto_nome} = Produto Am0yg</msg>
+<status status="PASS" starttime="20250625 15:35:12.514" endtime="20250625 15:35:12.514"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.111" endtime="20250625 15:35:12.514"/>
+</kw>
+<kw name="Quando eu realizo a requisicao de criacao do produto" library="ProdutosSteps">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>nome=${produto_nome}</arg>
+<arg>preco=100</arg>
+<arg>descricao=Produto Teste</arg>
+<arg>quantidade=10</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:12.515" level="INFO">${body} = {'nome': 'Produto Am0yg', 'preco': '100', 'descricao': 'Produto Teste', 'quantidade': '10'}</msg>
+<status status="PASS" starttime="20250625 15:35:12.515" endtime="20250625 15:35:12.515"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${AUTH_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:12.515" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEyLCJleHAiOjE3NTA4NzcxMTJ9.zc4XCHDbIjsqF0XeyeMH5P2rM5LN77Rv...</msg>
+<status status="PASS" starttime="20250625 15:35:12.515" endtime="20250625 15:35:12.515"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${PRODUTOS_ENDPOINT}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:12.717" level="INFO">POST Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEyLCJleHAiOjE3NTA4NzcxMTJ9.zc4XCHDbIjsqF0XeyeMH5P2rM5LN77Rvr23v4uobtwk', 'Content-Length': '91', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Produto Am0yg", "preco": "100", "descricao": "Produto Teste", "quantidade": "10"}' 
+ </msg>
+<msg timestamp="20250625 15:35:12.717" level="INFO">POST Response : url=https://serverest.dev/produtos 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '1cfd2a21984a618ab8f1f033cf245152', 'date': 'Wed, 25 Jun 2025 18:35:12 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "T4lCHygHlYtF5Pdx"
+} 
+ </msg>
+<msg timestamp="20250625 15:35:12.717" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.515" endtime="20250625 15:35:12.717"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:12.717" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.717" endtime="20250625 15:35:12.717"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.514" endtime="20250625 15:35:12.717"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 201 e confirmar a criacao" library="ProdutosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:12.718" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.718" endtime="20250625 15:35:12.718"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()['message']}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:12.718" endtime="20250625 15:35:12.719"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.718" endtime="20250625 15:35:12.719"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.111" endtime="20250625 15:35:12.719"/>
+</test>
+<test id="s1-s3-t2" name="Criar Produto Com Nome Ja Cadastrado" line="10">
+<kw name="Dado que eu possua um produto ja cadastrado" library="ProdutosSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:12.720" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:12.720" endtime="20250625 15:35:12.720"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.719" endtime="20250625 15:35:12.720"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${login_body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/login_sucesso.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:12.720" level="INFO">${login_body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<status status="PASS" starttime="20250625 15:35:12.720" endtime="20250625 15:35:12.720"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${login_response}</var>
+<arg>POST</arg>
+<arg>${LOGIN_ENDPOINT}</arg>
+<arg>${login_body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:13.126" level="INFO">POST Request : url=https://serverest.dev/login 
+ path_url=/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg timestamp="20250625 15:35:13.126" level="INFO">POST Response : url=https://serverest.dev/login 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'a5001fa767b92ce74f8a2adba053bb9b', 'date': 'Wed, 25 Jun 2025 18:35:13 GMT', 'server': 'Google Frontend', 'Content-Length': '265'} 
+ body={
+    "message": "Login realizado com sucesso",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEzLCJleHAiOjE3NTA4NzcxMTN9.jdkUGw5MrlZA98v0S6cE04n4-cTvDhjH7E3nqokNkJE"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:12.721" endtime="20250625 15:35:13.126"/>
+</kw>
+<msg timestamp="20250625 15:35:13.127" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.720" endtime="20250625 15:35:13.127"/>
+</kw>
+<msg timestamp="20250625 15:35:13.127" level="INFO">${login_response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:12.720" endtime="20250625 15:35:13.127"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${token}</var>
+<arg>${login_response.json()}[authorization]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:13.127" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEzLCJleHAiOjE3NTA4NzcxMTN9.jdkUGw5MrlZA98v0S6cE04n4-cTvDhjH7E3nqokNkJE</msg>
+<status status="PASS" starttime="20250625 15:35:13.127" endtime="20250625 15:35:13.127"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:13.127" level="INFO">${AUTH_TOKEN} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEzLCJleHAiOjE3NTA4NzcxMTN9.jdkUGw5MrlZA98v0S6cE04n4-cTvDhjH7E3nqokNkJE</msg>
+<status status="PASS" starttime="20250625 15:35:13.127" endtime="20250625 15:35:13.128"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.719" endtime="20250625 15:35:13.128"/>
+</kw>
+<kw name="Quando eu tento criar o mesmo produto novamente" library="ProdutosSteps">
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/produto_cadastro.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:13.128" level="INFO">${body} = {'nome': 'Logitech MX Keys', 'preco': 500, 'descricao': 'Teclado sem fio', 'quantidade': 5}</msg>
+<status status="PASS" starttime="20250625 15:35:13.128" endtime="20250625 15:35:13.128"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${AUTH_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20250625 15:35:13.128" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEzLCJleHAiOjE3NTA4NzcxMTN9.jdkUGw5MrlZA98v0S6cE04n4-cTvDhjH...</msg>
+<status status="PASS" starttime="20250625 15:35:13.128" endtime="20250625 15:35:13.128"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>sessao_api</arg>
+<arg>${PRODUTOS_ENDPOINT}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=400</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:13.306" level="INFO">POST Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZ1bGFub0BxYS5jb20iLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzUwODc2NTEzLCJleHAiOjE3NTA4NzcxMTN9.jdkUGw5MrlZA98v0S6cE04n4-cTvDhjH7E3nqokNkJE', 'Content-Length': '91', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Logitech MX Keys", "preco": 500, "descricao": "Teclado sem fio", "quantidade": 5}' 
+ </msg>
+<msg timestamp="20250625 15:35:13.306" level="INFO">POST Response : url=https://serverest.dev/produtos 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '7fa79cdb1aadfdaff5ae785f1f9d53ba', 'date': 'Wed, 25 Jun 2025 18:35:13 GMT', 'server': 'Google Frontend', 'Content-Length': '53'} 
+ body={
+    "message": "Já existe produto com esse nome"
+} 
+ </msg>
+<msg timestamp="20250625 15:35:13.306" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.128" endtime="20250625 15:35:13.306"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:13.307" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.307" endtime="20250625 15:35:13.307"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.128" endtime="20250625 15:35:13.307"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 400 e mensagem de erro" library="ProdutosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:13.308" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.307" endtime="20250625 15:35:13.308"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Já existe produto com esse nome</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:13.308" endtime="20250625 15:35:13.308"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.307" endtime="20250625 15:35:13.308"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:12.719" endtime="20250625 15:35:13.308"/>
+</test>
+<status status="PASS" starttime="20250625 15:35:12.105" endtime="20250625 15:35:13.309"/>
+</suite>
+<suite id="s1-s4" name="Usuarios.feature" source="/home/locavalcante/estudos/desafio-api-QA/features/Usuarios.feature.robot">
+<test id="s1-s4-t1" name="Cadastrar Usuario Com Sucesso" line="5">
+<kw name="Dado que eu possua dados validos para criar um usuario" library="UsuariosSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:13.315" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:13.315" endtime="20250625 15:35:13.315"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.315" endtime="20250625 15:35:13.315"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.315" endtime="20250625 15:35:13.315"/>
+</kw>
+<kw name="Quando eu realizo a requisicao de criacao do usuario" library="UsuariosSteps">
+<kw name="Criar usuario com email aleatorio" library="Common">
+<var>${body}</var>
+<var>${email_aleatorio}</var>
+<kw name="Gerar email aleatório" library="Common">
+<var>${email_aleatorio}</var>
+<kw name="Generate Random String" library="String">
+<var>${random_string}</var>
+<arg>5</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20250625 15:35:13.316" level="INFO">${random_string} = cjID4</msg>
+<status status="PASS" starttime="20250625 15:35:13.316" endtime="20250625 15:35:13.316"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${email_aleatorio}</var>
+<arg>${random_string}@qa.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:13.317" level="INFO">${email_aleatorio} = cjID4@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.316" endtime="20250625 15:35:13.317"/>
+</kw>
+<msg timestamp="20250625 15:35:13.317" level="INFO">${email_aleatorio} = cjID4@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.316" endtime="20250625 15:35:13.317"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/usuario_cadastro.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:13.317" level="INFO">${body} = {'nome': 'Fulano da Silva', 'email': 'beltrano@qa.com.br', 'password': 'teste', 'administrador': 'true'}</msg>
+<status status="PASS" starttime="20250625 15:35:13.317" endtime="20250625 15:35:13.317"/>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<arg>${body}</arg>
+<arg>email=${email_aleatorio}</arg>
+<arg>administrador=true</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20250625 15:35:13.317" endtime="20250625 15:35:13.317"/>
+</kw>
+<msg timestamp="20250625 15:35:13.317" level="INFO">${body} = {'nome': 'Fulano da Silva', 'email': 'cjID4@qa.com', 'password': 'teste', 'administrador': 'true'}</msg>
+<msg timestamp="20250625 15:35:13.317" level="INFO">${email_aleatorio} = cjID4@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.316" endtime="20250625 15:35:13.317"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${response}</var>
+<arg>POST</arg>
+<arg>${USUARIOS_ENDPOINT}</arg>
+<arg>${body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:13.751" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '98', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Fulano da Silva", "email": "cjID4@qa.com", "password": "teste", "administrador": "true"}' 
+ </msg>
+<msg timestamp="20250625 15:35:13.751" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '8f3b6786366b3fdfaa44ae9d4dc8a649', 'date': 'Wed, 25 Jun 2025 18:35:13 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "GLvuh2MfvRfVidFO"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:13.318" endtime="20250625 15:35:13.751"/>
+</kw>
+<msg timestamp="20250625 15:35:13.751" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.318" endtime="20250625 15:35:13.751"/>
+</kw>
+<msg timestamp="20250625 15:35:13.751" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.317" endtime="20250625 15:35:13.751"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:13.751" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.751" endtime="20250625 15:35:13.751"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.316" endtime="20250625 15:35:13.751"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 201 e confirmar a criacao" library="UsuariosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:13.752" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.752" endtime="20250625 15:35:13.752"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${response.json()}[message]</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20250625 15:35:13.752" endtime="20250625 15:35:13.752"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.751" endtime="20250625 15:35:13.752"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.315" endtime="20250625 15:35:13.753"/>
+</test>
+<test id="s1-s4-t2" name="Consultar Usuario Com Sucesso" line="10">
+<kw name="Dado que eu possua um usuario ja cadastrado" library="UsuariosSteps">
+<kw name="Criar Sessao API" library="Common">
+<arg>${BASE_URL}</arg>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250625 15:35:13.753" level="INFO">Creating Session using : alias=sessao_api, url=https://serverest.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250625 15:35:13.753" endtime="20250625 15:35:13.753"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.753" endtime="20250625 15:35:13.753"/>
+</kw>
+<kw name="Criar usuario com email aleatorio" library="Common">
+<var>${body}</var>
+<var>${email_aleatorio}</var>
+<kw name="Gerar email aleatório" library="Common">
+<var>${email_aleatorio}</var>
+<kw name="Generate Random String" library="String">
+<var>${random_string}</var>
+<arg>5</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20250625 15:35:13.754" level="INFO">${random_string} = nhDM1</msg>
+<status status="PASS" starttime="20250625 15:35:13.754" endtime="20250625 15:35:13.754"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${email_aleatorio}</var>
+<arg>${random_string}@qa.com</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20250625 15:35:13.754" level="INFO">${email_aleatorio} = nhDM1@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.754" endtime="20250625 15:35:13.754"/>
+</kw>
+<msg timestamp="20250625 15:35:13.754" level="INFO">${email_aleatorio} = nhDM1@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.754" endtime="20250625 15:35:13.754"/>
+</kw>
+<kw name="Load Json From File" library="JSONLibrary">
+<var>${body}</var>
+<arg>/home/locavalcante/estudos/desafio-api-QA/steps/../data/usuario_cadastro.json</arg>
+<doc>Load JSON from file.</doc>
+<msg timestamp="20250625 15:35:13.755" level="INFO">${body} = {'nome': 'Fulano da Silva', 'email': 'beltrano@qa.com.br', 'password': 'teste', 'administrador': 'true'}</msg>
+<status status="PASS" starttime="20250625 15:35:13.755" endtime="20250625 15:35:13.755"/>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<arg>${body}</arg>
+<arg>email=${email_aleatorio}</arg>
+<arg>administrador=true</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20250625 15:35:13.755" endtime="20250625 15:35:13.755"/>
+</kw>
+<msg timestamp="20250625 15:35:13.755" level="INFO">${body} = {'nome': 'Fulano da Silva', 'email': 'nhDM1@qa.com', 'password': 'teste', 'administrador': 'true'}</msg>
+<msg timestamp="20250625 15:35:13.755" level="INFO">${email_aleatorio} = nhDM1@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:13.754" endtime="20250625 15:35:13.755"/>
+</kw>
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${response}</var>
+<arg>POST</arg>
+<arg>${USUARIOS_ENDPOINT}</arg>
+<arg>${body}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="POST On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:14.079" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '98', 'Content-Type': 'application/json'} 
+ body=b'{"nome": "Fulano da Silva", "email": "nhDM1@qa.com", "password": "teste", "administrador": "true"}' 
+ </msg>
+<msg timestamp="20250625 15:35:14.079" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'c404be0958db85f454d1a2d7267e0694', 'date': 'Wed, 25 Jun 2025 18:35:14 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "CNCz2cHiAQA3QHZf"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:13.756" endtime="20250625 15:35:14.079"/>
+</kw>
+<msg timestamp="20250625 15:35:14.079" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.756" endtime="20250625 15:35:14.079"/>
+</kw>
+<msg timestamp="20250625 15:35:14.079" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:13.755" endtime="20250625 15:35:14.079"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:14.079" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:14.079" endtime="20250625 15:35:14.080"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${USER_EMAIL}</arg>
+<arg>${email_aleatorio}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:14.080" level="INFO">${USER_EMAIL} = nhDM1@qa.com</msg>
+<status status="PASS" starttime="20250625 15:35:14.080" endtime="20250625 15:35:14.080"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${USER_ID}</arg>
+<arg>${response.json()}[_id]</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:14.081" level="INFO">${USER_ID} = CNCz2cHiAQA3QHZf</msg>
+<status status="PASS" starttime="20250625 15:35:14.080" endtime="20250625 15:35:14.081"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.753" endtime="20250625 15:35:14.081"/>
+</kw>
+<kw name="Quando eu realizo a requisicao de consulta do usuario" library="UsuariosSteps">
+<kw name="Exec Requisicao" library="RequestsPages">
+<var>${response}</var>
+<arg>GET</arg>
+<arg>${USUARIOS_ENDPOINT}/${USER_ID}</arg>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${response}</var>
+<arg>'${method}' == 'POST'</arg>
+<arg>POST On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'GET'</arg>
+<arg>GET On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'PUT'</arg>
+<arg>PUT On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>ELSE IF</arg>
+<arg>'${method}' == 'DELETE'</arg>
+<arg>DELETE On Session</arg>
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>sessao_api</arg>
+<arg>${endpoint}</arg>
+<arg>expected_status=${expected_status}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20250625 15:35:14.355" level="INFO">GET Request : url=https://serverest.dev/usuarios/CNCz2cHiAQA3QHZf 
+ path_url=/usuarios/CNCz2cHiAQA3QHZf 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20250625 15:35:14.355" level="INFO">GET Response : url=https://serverest.dev/usuarios/CNCz2cHiAQA3QHZf 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '10e6429df81d69e054d1a2d7267e05f6', 'date': 'Wed, 25 Jun 2025 18:35:14 GMT', 'server': 'Google Frontend', 'Content-Length': '147'} 
+ body={
+    "nome": "Fulano da Silva",
+    "email": "nhDM1@qa.com",
+    "password": "teste",
+    "administrador": "true",
+    "_id": "CNCz2cHiAQA3QHZf"
+} 
+ </msg>
+<status status="PASS" starttime="20250625 15:35:14.082" endtime="20250625 15:35:14.355"/>
+</kw>
+<msg timestamp="20250625 15:35:14.355" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:14.082" endtime="20250625 15:35:14.355"/>
+</kw>
+<msg timestamp="20250625 15:35:14.355" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:14.081" endtime="20250625 15:35:14.355"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250625 15:35:14.356" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:14.356" endtime="20250625 15:35:14.356"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:14.081" endtime="20250625 15:35:14.356"/>
+</kw>
+<kw name="Entao o sistema deve retornar status 200 e os dados do usuario" library="UsuariosSteps">
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250625 15:35:14.356" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250625 15:35:14.356" endtime="20250625 15:35:14.356"/>
+</kw>
+<kw name="Dictionary Should Contain Value" library="Collections">
+<arg>${response.json()}</arg>
+<arg>${USER_EMAIL}</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="PASS" starttime="20250625 15:35:14.357" endtime="20250625 15:35:14.357"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:14.356" endtime="20250625 15:35:14.357"/>
+</kw>
+<status status="PASS" starttime="20250625 15:35:13.753" endtime="20250625 15:35:14.357"/>
+</test>
+<status status="PASS" starttime="20250625 15:35:13.309" endtime="20250625 15:35:14.357"/>
+</suite>
+<status status="PASS" starttime="20250625 15:35:06.642" endtime="20250625 15:35:14.358"/>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="8" fail="0" skip="0" id="s1" name="Features">Features</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1" name="Carrinhos.feature">Features.Carrinhos.feature</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s2" name="Login.feature">Features.Login.feature</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s3" name="Produtos.feature">Features.Produtos.feature</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s4" name="Usuarios.feature">Features.Usuarios.feature</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20250625 15:35:06.826" level="WARN">Imported library '/home/locavalcante/estudos/desafio-api-QA/steps/suppress_warnings.py' contains no keywords.</msg>
+</errors>
+</robot>
